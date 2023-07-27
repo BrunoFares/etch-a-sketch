@@ -1,14 +1,17 @@
 const container = document.querySelector('#container');
 const button = document.querySelector('button');
 let size;
-let oldSize;
 
-button.addEventListener('click', createPad);
+button.addEventListener('click', start);
+
+function start() {
+    erasePad();
+    size = +prompt("Choose the size of the pad you'd like to create:");
+    createPad();
+    colorPad();
+}
 
 function createPad() {
-    oldSize = size;
-    size = +prompt("Choose the size of the pad you'd like to create:");
-
     for(let i = 0; i < size; i++) {
         const outerDiv = document.createElement('div');
         container.appendChild(outerDiv).setAttribute('class', `row`);
@@ -18,7 +21,9 @@ function createPad() {
             outerDiv.appendChild(innerDiv);
         }
     }
+}
 
+function colorPad() {
     const individualDiv = document.querySelectorAll('div.row div');
 
     for(let i = 0; i < size**2; i++) {
@@ -26,12 +31,10 @@ function createPad() {
             individualDiv[i].style.cssText = "background-color: rgb(200, 0, 0);";
         });
     }
-
-    erasePad();
 }
 
 function erasePad() {
-    for(let i = 0; i < oldSize; i++) {
+    for(let i = 0; i < size; i++) {
         container.removeChild(container.firstElementChild);
     }
 }
